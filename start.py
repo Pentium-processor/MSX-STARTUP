@@ -1,11 +1,16 @@
 import curses
 
+
+#setting up the screen
+
 screen = curses.initscr()
 curses.cbreak()
 curses.noecho()
 curses.curs_set(0)
 curses.start_color()
 curses.use_default_colors()
+
+#color pair values for main curses screen
 
 curses.init_pair(1,234,234)
 curses.init_pair(2,235,235)
@@ -15,7 +20,9 @@ curses.init_pair(5,238,238)
 curses.init_pair(6,239,239)
 curses.init_pair(7,27,27)
 
-curses.init_pair(8,16,15)
+# text color pair values
+
+curses.init_pair(8,16,254)
 curses.init_pair(9,15,27)
 
 MSX_LOGO = '''
@@ -48,7 +55,7 @@ for n in range(1,8,1):
 
 
 y_pos,x_pos = screen.getmaxyx()[0]//2 + 5 , screen.getmaxyx()[1]//2
-     
+
 for pos,line in enumerate(MSX_LOGO.splitlines()[::-1],start=y_pos):
 
     x_pos-=1
@@ -59,8 +66,8 @@ for pos,line in enumerate(MSX_LOGO.splitlines()[::-1],start=y_pos):
     x_pos=screen.getmaxyx()[1]//2 - 50
     y_pos-=1
 
-    screen.addstr(40,screen.getmaxyx()[1]//2,"VRAM: 128 Kbytes",curses.color_pair(9))
-  
+    screen.addstr(38,screen.getmaxyx()[1]//2-11," VRAM: 128 Kbytes ".center(5),curses.color_pair(9))
 
-curses.endwin()
-
+else:
+ curses.napms(2000)
+ curses.endwin()
