@@ -66,7 +66,7 @@ for pos,line in enumerate(MSX_LOGO.splitlines()[::-1],start=y_pos):
     x_pos=screen.getmaxyx()[1]//2 - 50
     y_pos-=1
 
-    screen.addstr(38,screen.getmaxyx()[1]//2-11," VRAM: 128 Kbytes ".center(5),curses.color_pair(9))
+    screen.addstr(screen.getmaxyx()[0]//2+5,screen.getmaxyx()[1]//2-11,"VRAM: 128 Kbytes",curses.color_pair(9))
 
 else:
  curses.napms(2000)
