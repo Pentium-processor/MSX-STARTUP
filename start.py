@@ -32,6 +32,13 @@ curses.init_pair(14,27,27)
 curses.init_pair(15,16,231)
 curses.init_pair(16,15,27)
 
+def detect_exit_key():
+
+   detect_key = screen.getch()
+   if detect_key == ord("q"):
+      curses.endwin()
+      quit("")
+
 MSX_LOGO = '''
 ████████████████████████████████████████████████████████████████████████████████████████████████████
 ████████████████████████████████████████████████████████████████████████████████████████████████████
@@ -58,17 +65,22 @@ try:
 
  if curses.LINES >= 49 and curses.COLS >= 167:
 
+  screen.nodelay(True)
+
   for n in range(1,15,1):
+     detect_exit_key()
      screen.bkgd(" ",curses.color_pair(n))
      curses.napms(100)
      screen.refresh()
 
 
+  detect_exit_key()
   curses.napms(1000)
   y_pos,x_pos = screen.getmaxyx()[0]//2 + 5 , screen.getmaxyx()[1]//2
 
   for pos,line in enumerate(MSX_LOGO.splitlines()[::-1],start=y_pos):
 
+    detect_exit_key()
     x_pos-=1
     screen.refresh()
     screen.addstr(y_pos,x_pos,line,curses.color_pair(15))
@@ -79,7 +91,7 @@ try:
 
 
 
-
+  detect_exit_key()
   screen.refresh()
   screen.addstr(screen.getmaxyx()[0]//2+5,screen.getmaxyx()[1]//2-11,"VRAM: 128 Kbytes",curses.color_pair(16))
   screen.refresh()
@@ -87,6 +99,11 @@ try:
   curses.napms(2000)
   curses.endwin()
   quit("")
+
+ else:
+
+   curses.endwin()
+   quit("Screen resolution of {columns}x{lines} is not large enough".format(columns = curses.COLS, lines = curses.LINES))
 
 except curses.error:
 
