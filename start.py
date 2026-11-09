@@ -103,7 +103,7 @@ if curses.LINES >= 49 and curses.COLS >=167:
 
   detect_exit_key()
   curses.napms(1000)
-  y_pos,x_pos = screen.getmaxyx()[0]//2 , screen.getmaxyx()[1]//2
+  y_pos,x_pos = screen.getmaxyx()[0]//2 + 5 , screen.getmaxyx()[1]//2 + 50
 
 
   for pos,line in enumerate(MSX_LOGO.splitlines()[::-1],start=y_pos):
@@ -115,13 +115,13 @@ if curses.LINES >= 49 and curses.COLS >=167:
     screen.refresh()
 
 
-    curses.napms(100)
+    curses.napms(40)
     x_pos=screen.getmaxyx()[1]//2 - 50
     y_pos-=1
 
 
   screen.refresh()
-  screen.addstr(screen.getmaxyx()[0]//2,screen.getmaxyx()[1]//2 - 11,"VRAM: 128 Kbytes",curses.color_pair(17))
+  screen.addstr(screen.getmaxyx()[0]//2 + 5,screen.getmaxyx()[1]//2 - 11,"VRAM: 128 Kbytes",curses.color_pair(17))
   screen.refresh()
 
   curses.napms(2000)
